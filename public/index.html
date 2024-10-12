@@ -1,10 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel = "stylesheet"  href = "/css/style.css" type = "text/css" >
-   <!-- <script src = "index.js"></script> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thrive Well Website</title>
+    <!-- Link to Google Fonts for custom font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background: linear-gradient(to bottom, #0f4ce8, #ffffff);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+
+        nav a {
+            padding: 14px 20px;
+            display: block;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .content {
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+            border: 2px solid #0f4ce8;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            position: relative;
+            width: 100%;
+        }
+
+        h1, h2 {
+            color: #0f4ce8;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World</h1>
+
+<header>
+    <h1>Thrive Well</h1>
+</header>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#about">Timer</a>
+    <a href="#services">AI Assistant</a>
+    <a href="about_creators.html">About the Creators</a>
+</nav>
+
+<div class="content" id="about">
+    <h2>About Thrive Well</h2>
+    <p>Thrive Well is a health and wellness platform designed to help users manage their mental and physical well-being. We believe that a balanced life is essential for success, and our tools, including a customizable timer and AI assistant, are crafted to help users develop healthy habits, reduce stress, and achieve mindfulness.</p>
+    <p>Whether you're looking to improve your physical fitness, develop mindfulness practices, or simply find more time for self-care, Thrive Well offers an easy-to-use platform to track your progress and stay motivated.</p>
+</div>
+
+<div class="content" id="services">
+    <h2>Our Services</h2>
+    <p>We offer a variety of services ranging from a timer to keep you on pace while working, to an AI Chat Assistant that helps you control things in your life.</p>
+</div>
+
+<div class="content" id="contact">
+    <h2>Go DubHacks!</h2>
+    <p>Made for DubHacks 24'</p>
+</div>
+
+<footer>
+    <p>&copy; 2024 Thrive Well. All rights reserved.</p>
+</footer>
+
 </body>
-</html> 
+</html>
