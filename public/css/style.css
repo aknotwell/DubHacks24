@@ -1,0 +1,11 @@
+html {
+    height: 100%;
+
+    overflow: hidden;
+
+    border: 300px yellow thin;
+}
+body {
+    background-color: grey;
+
+}
