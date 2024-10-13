@@ -1,34 +1,34 @@
-import os
 from flask import Flask, request, jsonify
 import openai
-from dotenv import load_dotenv
-from flask_cors import CORS  # Move this import here
-
-# Load environment variables from .env file
-load_dotenv()
+import os
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
-openai.api_key = os.getenv('OPENAI_API_KEY')
 
-@app.route('/')
-def home():
-    return "Welcome to the Chat API! Use the /api/chat endpoint to interact."
+# Set your OpenAI API key here
+openai.api_key = os.getenv('OPENAI_API_KEY')  # Make sure your environment variable is set
 
-@app.route('/api/chat', methods=['POST'])
-def chat():
-    user_input = request.json.get('messages', [])
-    print(f"User Input: {user_input}")  # Log user input
-    try:
+@app.route('/ask', methods=['POST'])
+def ask():
+    data = request.json
+    message = data.get('message')
+
+    if message:
+        # Call OpenAI API with the user message
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",  # or "gpt-4" if you have access
-            messages=user_input
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": message}]
         )
-        print(f"Response: {response}")  # Log the response
-        return jsonify(response)
-    except Exception as e:
-        print(f"Error: {e}")
-        return jsonify({"error": str(e)}), 500
+        
+        # Extract the bot's reply
+        bot_response = response['choices'][0]['message']['content']
+        return jsonify({"response": bot_response})
+    else:
+        return jsonify({"response": "Sorry, I couldn't get a response."}), 400
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes

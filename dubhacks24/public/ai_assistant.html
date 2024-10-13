@@ -1,121 +1,142 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Assistant - Thrive Well</title>
+    <title>AI Assistant</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        /* Chatbox styles */
-        .chat-container {
-            margin-top: 20px;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #chat {
+            width: 80%;
+            max-width: 600px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: white;
             padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        #chatbox {
-            width: 100%;
-            height: 150px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            resize: none;
-        }
-
-        #sendBtn {
-            margin-top: 10px;
-        }
-
-        #chatlog {
-            max-height: 300px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
-            margin-top: 10px;
-            border: 1px solid #ccc;
+            height: 300px;
+        }
+
+        #messages {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .message {
+            margin: 10px 0;
             padding: 10px;
             border-radius: 5px;
-            background-color: #f9f9f9;
         }
 
-        .user-message {
-            color: blue;
+        .user {
+            background-color: #007bff;
+            color: white;
+            text-align: right;
         }
 
-        .bot-message {
-            color: green;
+        .bot {
+            background-color: #e9ecef;
+            color: black;
+            text-align: left;
+        }
+
+        #inputContainer {
+            display: flex;
+            margin-top: 10px;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        #messageInput {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #sendButton {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        #sendButton:hover {
+            background-color: #218838;
         }
     </style>
 </head>
 <body>
 
-<nav>
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about_creators.html">About Creators</a></li>
-        <li><a href="timer.html">Timer</a></li>
-        <li><a href="ai_assistant.html">AI Assistant</a></li> <!-- Added AI Assistant link -->
-    </ul>
-</nav>
+    <h1>Chat with AI Assistant</h1>
+    <div id="chat">
+        <ul id="messages"></ul>
+    </div>
+    <div id="inputContainer">
+        <input type="text" id="messageInput" placeholder="Type your message..." />
+        <button id="sendButton">Send</button>
+    </div>
 
-<div class="content">
-    <h2>AI Assistant</h2>
-    <p>Meet your AI-powered wellness companion! Our assistant helps you track habits, provides motivation, and offers personalized recommendations for improving your well-being.</p>
-</div>
+    <script>
+        const sendButton = document.getElementById('sendButton');
+        const messageInput = document.getElementById('messageInput');
+        const messagesContainer = document.getElementById('messages');
 
-<!-- Chatbox Section -->
-<div class="chat-container">
-    <textarea id="chatbox" placeholder="Type your message here..."></textarea>
-    <button id="sendBtn">Send</button>
-    <div id="chatlog"></div>
-</div>
+        sendButton.addEventListener('click', async () => {
+            const messageText = messageInput.value;
+            if (!messageText) return;
 
-<script>
-    document.getElementById('sendBtn').addEventListener('click', async function() {
-        const chatbox = document.getElementById('chatbox');
-        const userMessage = chatbox.value;
+            // Display user message
+            addMessage(messageText, 'user');
 
-        // Check if message is empty
-        if (!userMessage.trim()) {
-            alert('Please enter a message');
-            return;
-        }
+            // Clear the input field
+            messageInput.value = '';
 
-        // Display user message
-        const chatlog = document.getElementById('chatlog');
-        chatlog.innerHTML += `<div class="user-message">You: ${userMessage}</div>`;
-        chatbox.value = '';
-
-        // Send user message to the Flask backend
-        try {
-            const response = await fetch('http://127.0.0.1:5000/api/chat', {
+            // Send the message to the Flask server
+            const response = await fetch('http://127.0.0.1:5000/ask', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    messages: [{ role: 'user', content: userMessage }]
-                })
+                body: JSON.stringify({ message: messageText }),
             });
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
             const data = await response.json();
+            if (response.ok) {
+                addMessage(data.response, 'bot');
+            } else {
+                addMessage("Sorry, I couldn't get a response.", 'bot');
+            }
+        });
 
-            // Display bot response
-            const botMessage = data.choices[0].message.content;  // Adjust this according to the response structure
-            chatlog.innerHTML += `<div class="bot-message">Bot: ${botMessage}</div>`;
-            chatlog.scrollTop = chatlog.scrollHeight;  // Scroll to the bottom
-        } catch (error) {
-            console.error('Error:', error);
+        function addMessage(text, sender) {
+            const messageElement = document.createElement('li');
+            messageElement.className = 'message ' + sender;
+            messageElement.textContent = text;
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight; // Auto-scroll
         }
-    });
-</script>
-
+    </script>
 </body>
 </html>
