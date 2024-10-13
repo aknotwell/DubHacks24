@@ -14,7 +14,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f7f7f7;
+            background: linear-gradient(135deg, #6dd5ed, #ffffff);
             text-align: center;
         }
 
@@ -23,7 +23,7 @@
             position: absolute;
             top: 0;
             width: 100%;
-            background-color: #333;
+            background-color: rgba(0, 0, 0, 0.7);
             padding: 15px;
         }
 
@@ -43,16 +43,48 @@
             color: white;
             text-decoration: none;
             font-weight: 600;
+            font-size: 1.2rem;
         }
 
         nav ul li a:hover {
-            color: #0f4ce8;
+            color: #ffd700;
         }
 
         /* Minimalistic home content */
+        .home-content {
+            animation: fadeIn 2s ease-in-out;
+        }
+
         .home-content h1 {
-            font-size: 4rem;
+            font-size: 5rem;
             color: #333;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .home-content p {
+            font-size: 1.5rem;
+            color: #666;
+            font-weight: 300;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Footer */
+        footer {
+            position: absolute;
+            bottom: 20px;
+            color: #666;
+            font-size: 1rem;
         }
 
     </style>
@@ -71,7 +103,13 @@
 <!-- Home content -->
 <div class="home-content">
     <h1>Thrive Well</h1>
+    <p>Your journey to wellness begins here</p>
 </div>
+
+<!-- Footer -->
+<footer>
+    &copy; 2024 Thrive Well
+</footer>
 
 </body>
 </html>
