@@ -1,16 +1,4 @@
 
-3. **CORS Issues:**
-- If the front-end (HTML) is served from a different domain than the back-end (Flask API at `127.0.0.1:5000`), you might run into Cross-Origin Resource Sharing (CORS) issues. To resolve this, you may need to configure your Flask back-end to allow requests from the front-end domain.
-
-4. **Flask API Response:**
-- Ensure the API response structure matches the code. You're accessing the bot's message using `data.choices[0].message.content`. Make sure the response object from your Flask API is structured this way, or adjust the code accordingly.
-
-5. **Navigation Links:**
-- The navigation bar is missing the link to the "AI Assistant" page, which is currently displayed. If you'd like to keep the same design as other pages, you might want to add a link to this page as well for consistency.
-
-Here’s a slightly improved version with these points addressed:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
