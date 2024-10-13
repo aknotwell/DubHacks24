@@ -14,11 +14,26 @@
             display: flex;
         }
 
-        /* Sidebar navigation */
+        /* Hamburger Menu Button */
+        .menu-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background-color: #333;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Sidebar navigation (initially hidden) */
         nav {
             position: fixed;
             top: 0;
-            left: 0;
+            left: -250px; /* Hidden initially */
             width: 250px;
             height: 100%;
             background-color: #333;
@@ -26,6 +41,12 @@
             flex-direction: column;
             justify-content: flex-start;
             padding-top: 30px;
+            transition: 0.3s;
+        }
+
+        /* Show sidebar when active */
+        nav.active {
+            left: 0;
         }
 
         nav a {
@@ -49,15 +70,15 @@
 
         /* Main content area */
         .main-content {
-            margin-left: 250px; /* width of the sidebar */
+            margin-left: 0; /* Sidebar no longer taking up space */
             padding: 40px;
             width: 100%;
         }
 
-        /* Header */
+        /* Shortened Header */
         header {
             background: linear-gradient(to bottom, #0f4ce8, #ffffff);
-            padding: 40px;
+            padding: 20px;
             text-align: center;
             color: white;
             font-weight: 600;
@@ -66,7 +87,7 @@
         }
 
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #fff;
         }
 
@@ -142,8 +163,11 @@
 </head>
 <body>
 
+<!-- Hamburger Menu Button -->
+<button class="menu-btn" onclick="toggleMenu()">☰</button>
+
 <!-- Sidebar Navigation -->
-<nav>
+<nav id="sidebar">
     <a href="#home"><i class="fas fa-home"></i> Home</a>
     <a href="#about"><i class="fas fa-stopwatch"></i> Timer</a>
     <a href="#services"><i class="fas fa-robot"></i> AI Assistant</a>
@@ -199,6 +223,14 @@
 
 <!-- Link to FontAwesome icons for navigation -->
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<!-- JavaScript for toggling sidebar -->
+<script>
+    function toggleMenu() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('active');
+    }
+</script>
 
 </body>
 </html>
