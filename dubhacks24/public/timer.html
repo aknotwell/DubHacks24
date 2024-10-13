@@ -4,89 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timer - Thrive Well</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background: linear-gradient(135deg, #6dd5ed, #ffffff);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Navigation bar */
-        nav {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 15px;
-        }
-
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        nav ul li {
-            margin: 0 20px;
-        }
-
-        nav ul li a {
-            background: linear-gradient(135deg, #6dd5ed, #ffffff);
-            -webkit-background-clip: text;
-            color: transparent;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        nav ul li a:hover {
-            color: #ffd700;
-            background: none;
-        }
-
-        /* Page content */
-        .content {
-            text-align: center;
-            padding: 30px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        .content h2 {
-            color: #333;
-            font-size: 2.5rem;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .content p {
-            font-size: 1.5rem;
-            color: #666;
-            font-weight: 300;
-        }
-
-        /* Fade-in animation */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-    </style>
+    <link rel = "stylesheet" href = 'css/timer.css'>
 </head>
 <body>
-
 <nav>
     <ul>
         <li><a href="index.html">Home</a></li>
@@ -94,11 +14,25 @@
         <li><a href="ai_assistant.html">AI Assistant</a></li>
     </ul>
 </nav>
+<div class = "timer"> </div>
 
-<div class="content">
-    <h2>Timer</h2>
-    <p>Use our customizable timer to focus on meditation, workout intervals, or mindfulness exercises. Stay productive and mindful with timed routines.</p>
-</div>
+    <script
+    src="https://unpkg.com/react@16/umd/react.production.min.js"
+    crossorigin
+  ></script>
+  <script
+    src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"
+    crossorigin
+  ></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script
+    type = "text/babel"
+    src = "Timer.js"
+  ></script>
 
+  <script
+    type = "text/babel">
+    ReactDOM.render(<Timer/>, document.querySelector('.timer'))
+  </script>
 </body>
 </html>
